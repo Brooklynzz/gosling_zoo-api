@@ -40,4 +40,22 @@ public class Animal {
         this.age = data.age();
         this.habitat = data.habitat();
     }
+
+    public void updateData(AnimalUpdate data) {
+        if (data.name() != null) {
+            this.name = data.name();
+        }
+        if (data.species() != null) {
+            this.species = data.species();
+        }
+        if (data.gender() != null) {
+            this.gender = data.gender();
+        }
+        if (data.age() != 0) {
+            this.age = data.age();
+        }
+        if (data.habitat() != null) {
+            this.habitat = data.habitat();
+        }
+    }
 }

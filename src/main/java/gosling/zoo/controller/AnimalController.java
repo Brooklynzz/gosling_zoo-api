@@ -1,10 +1,7 @@
 
 package gosling.zoo.controller;
 
-import gosling.zoo.animal.Animal;
-import gosling.zoo.animal.AnimalList;
-import gosling.zoo.animal.AnimalRegister;
-import gosling.zoo.animal.AnimalRepository;
+import gosling.zoo.animal.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,5 +37,32 @@ public class AnimalController {
     @GetMapping
     public List<AnimalList> listAnimals() {
         return repository.findAll().stream().map(AnimalList::new).toList();
+    }
+
+    /**
+     * PT-BR: Método HTTP para atualizar as informações dos animais no banco de dados.
+     * -----------------------------------------------------------------------------------------------------------------
+     * EN: HTTP method to update the data for the animals in database.
+     * @param data
+     */
+
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid AnimalUpdate data) {
+        var animal = repository.getReferenceById(data.id());
+        animal.updateData(data);
+    }
+
+    /**
+     * PT-BR: Método HTTP para deletar animais com o id vindo do caminho.
+     * -----------------------------------------------------------------------------------------------------------------
+     * EN: HTTP method to delete animals from database based on the id that comes in the path.
+     * @param id
+     */
+
+    @DeleteMapping({"/{id}"})
+    @Transactional
+    public void animalExclusion(@PathVariable Long id) {
+        repository.deleteById(id);
     }
 }
